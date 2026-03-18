@@ -436,17 +436,29 @@ ul { list-style: none; }
 .showcase__text strong { color: var(--color-gold-dark); font-weight: 700; }
 
 /* ========================================
-   1.5 COUNTERFEIT NOTICE
+   1.5 WARNING NOTICES
    ======================================== */
 .warning-notices { background: var(--color-white); padding: 48px 0 0; }
-.counterfeit-notice {
-  max-width: 840px; margin: 0 auto;
-  background: var(--gradient-primary);
-  border-radius: 6px; padding: 24px 32px;
-  border: 1px solid rgba(255,255,255,0.12);
+
+.scam-alert {
+  max-width: 840px; margin: 0 auto 28px;
+  border: 3px solid #cc0000; border-radius: 6px;
+  padding: 32px 36px 28px;
+  display: flex; align-items: flex-start; gap: 24px;
+  position: relative; background: #fff;
+  transition: box-shadow 0.3s ease;
 }
-.counterfeit-notice__title { font-size: 0.95rem; font-weight: 700; color: var(--color-gold); margin-bottom: 8px; letter-spacing: 0.03em; }
-.counterfeit-notice__text { font-size: 0.82rem; line-height: 1.8; color: rgba(255,255,255,0.72); }
+.scam-alert:hover { box-shadow: 0 2px 16px rgba(204,0,0,0.1); }
+.scam-alert__icon { flex-shrink: 0; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; margin-top: 4px; }
+.scam-alert__icon svg { width: 52px; height: 52px; }
+.scam-alert__body { flex: 1; }
+.scam-alert__title { font-size: 1.35rem; font-weight: 900; color: #cc0000; line-height: 1.6; margin-bottom: 14px; letter-spacing: 0.02em; }
+.scam-alert__text { font-size: 0.85rem; line-height: 1.9; color: #cc0000; }
+
+@media (max-width: 640px) {
+  .scam-alert { flex-direction: column; align-items: center; text-align: center; gap: 16px; padding: 24px 20px 20px; }
+  .scam-alert__title { font-size: 1.1rem; }
+}
 
 /* ========================================
    2. PROBLEM
@@ -621,6 +633,34 @@ ul { list-style: none; }
 .cta-banner__sub { font-size: 0.88rem; color: rgba(255,255,255,0.6); margin-bottom: 32px; }
 .cta-banner .cta-block__achievement { color: rgba(255,255,255,0.6); }
 .cta-banner .cta-block__achievement strong { color: var(--color-white); }
+
+/* CTA Banner ボタン：ティールパルス＋シマーアニメーション */
+.cta-banner .btn--primary {
+  display: inline-flex;
+  background: linear-gradient(135deg, #064d58 0%, #0e7b8a 45%, #064d58 100%);
+  font-size: 1.35rem;
+  font-weight: 900;
+  padding: 24px 44px;
+  letter-spacing: 0.03em;
+  box-shadow: 0 10px 34px rgba(0,0,0,0.25), 0 10px 28px rgba(14,123,138,0.35);
+  animation: cta-pulse-teal 2.4s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+.cta-banner .btn--primary::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%);
+  animation: cta-shimmer 3s ease-in-out infinite;
+}
+.cta-banner .btn--primary:hover { box-shadow: 0 6px 28px rgba(14,123,138,0.55); animation: none; transform: translateY(-2px); }
+@keyframes cta-pulse-teal {
+  0%, 100% { box-shadow: 0 4px 20px rgba(14,123,138,0.4); transform: scale(1); }
+  50% { box-shadow: 0 8px 36px rgba(14,123,138,0.65); transform: scale(1.03); }
+}
+@media (max-width: 640px) { .cta-banner .btn--primary { font-size: 1.15rem; padding: 22px 24px; width: 100%; justify-content: center; } }
 
 /* ========================================
    6. EVIDENCE
@@ -932,13 +972,21 @@ ul { list-style: none; }
 
 
 <!-- ============================================
-     1.5 COUNTERFEIT NOTICE
+     1.5 WARNING NOTICES
      ============================================ -->
 <section class="warning-notices">
   <div class="container">
-    <div class="counterfeit-notice fade-up">
-      <p class="counterfeit-notice__title">⚠️ WINBACKの模倣品にご注意ください</p>
-      <p class="counterfeit-notice__text">ブレスレット・エレクトロードはWINBACK社による特許技術となります。模倣品が存在しておりますので、ご注意ください。</p>
+    <div class="scam-alert fade-up">
+      <div class="scam-alert__icon">
+        <svg viewBox="0 0 64 64" fill="none">
+          <circle cx="32" cy="32" r="30" stroke="#cc0000" stroke-width="3" fill="none"/>
+          <text x="32" y="46" text-anchor="middle" font-size="40" font-weight="900" fill="#cc0000">!</text>
+        </svg>
+      </div>
+      <div class="scam-alert__body">
+        <div class="scam-alert__title">WINBACKの模倣品にご注意ください</div>
+        <p class="scam-alert__text">手に巻いてフリーハンド高周波施術を行うことができるブレスレット・エレクトロードはWINBACK社による特許技術となります。正規品ではない模倣品が多数存在しておりますのでご注意ください。WINBACK社の商品とは一切関係なく、エネルギーの感じ方や使用感などが全く異なります。</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1103,20 +1151,33 @@ ul { list-style: none; }
      CTA BANNER
      ============================================ -->
 <section class="cta-banner">
-  <div class="container text-center fade-up">
-    <h2 class="cta-banner__title">施術の再現性と時短を<br>同時に手に入れてください</h2>
-    <p class="cta-banner__desc">WINBACKは高周波エネルギーにより短時間でも深部にエネルギーを届けることが可能。その結果、施術の再現性と時短を同時に実現します。</p>
-    <p class="cta-banner__sub">世界30,000台以上の導入実績 | 世界55カ国 | 世界特許4つ取得</p>
-    <div class="cta-block">
-      <span class="cta-block__achievement">世界中のアスリートやスポーツチームが愛用<br><strong>30,000+</strong> 台の導入実績</span>
-      <a href="#contact" class="btn btn--primary">
-        今すぐ資料請求・体験予約
-        <span class="arrow">&rarr;</span>
-      </a>
-      <a href="#contact" class="btn btn--white">
-        機器の体験を予約する
-        <span class="arrow">&rarr;</span>
-      </a>
+  <div class="container">
+    <div class="mid-cta__offer fade-up">
+      <p class="mid-cta__offer-label">今すぐ体験すれば効果を実感！</p>
+      <h3 class="mid-cta__offer-title">WINBACKが選ばれる理由を<br>あなた自身で体感してください。</h3>
+      <div class="mid-cta__offer-badges">
+        <span class="mid-cta__offer-badge mid-cta__offer-badge--dark mid-cta__offer-badge--with-image">
+          <span class="mid-cta__offer-badge-text">
+            <span class="mid-cta__offer-badge-kicker">特典1</span>
+            <span class="mid-cta__offer-badge-main">WINBACKを3日間無償お試し</span>
+            <small>※お試しいただく機体は弊社指定のものとなります。</small>
+          </span>
+          <img class="mid-cta__offer-badge-img" src="../ペルソナ1/assets/images/img1.png" alt="BACK4 AX 機器">
+        </span>
+        <span class="mid-cta__offer-badge mid-cta__offer-badge--outline">特典2：最新学術ホワイトペーパー</span>
+      </div>
+    </div>
+    <div class="text-center fade-up" style="padding-top: 48px;">
+      <h2 class="cta-banner__title">施術の再現性と時短を<br>同時に手に入れてください</h2>
+      <p class="cta-banner__desc">WINBACKは高周波エネルギーにより短時間でも深部にエネルギーを届けることが可能。その結果、施術の再現性と時短を同時に実現します。</p>
+      <p class="cta-banner__sub">世界30,000台以上の導入実績 | 世界55カ国 | 世界特許4つ取得</p>
+      <div class="cta-block">
+        <span class="cta-block__achievement">世界中のアスリートやスポーツチームが愛用<br><strong>30,000+</strong> 台の導入実績</span>
+        <a href="#contact" class="btn btn--primary">
+          今すぐ資料請求・体験予約
+          <span class="arrow">&rarr;</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -1659,12 +1720,8 @@ ul { list-style: none; }
 
     <div class="cta-block fade-up">
       <span class="cta-block__achievement">世界中のアスリートやスポーツチームが愛用<br><strong>30,000+</strong> 台の導入実績</span>
-      <a href="tel:0000000000" class="btn btn--primary" style="width:100%;">
+      <a href="#contact" class="btn btn--primary" style="width:100%;">
         今すぐ資料請求・体験予約
-        <span class="arrow">&rarr;</span>
-      </a>
-      <a href="tel:0000000000" class="btn btn--white" style="width:100%;">
-        お問い合わせ・デモ予約
         <span class="arrow">&rarr;</span>
       </a>
     </div>
