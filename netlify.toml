@@ -1,0 +1,14 @@
+# 公開ルートはこのフォルダ直下（index.html と同じ階層にアセットを置く）
+[build]
+  publish = "."
+
+# トップ・HTML がブラウザ／CDN に古いまま残らないよう毎回再検証させる
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
