@@ -634,20 +634,23 @@ ul { list-style: none; }
 .cta-banner .cta-block__achievement { color: rgba(255,255,255,0.6); }
 .cta-banner .cta-block__achievement strong { color: var(--color-white); }
 
-/* CTA Banner ボタン：ティールパルス＋シマーアニメーション */
-.cta-banner .btn--primary {
+/* CTA Banner ボタン：ティールパルス＋シマーアニメーション＋白枠 */
+.cta-banner .btn--primary,
+.final-cta .btn--primary {
   display: inline-flex;
   background: linear-gradient(135deg, #064d58 0%, #0e7b8a 45%, #064d58 100%);
   font-size: 1.35rem;
   font-weight: 900;
   padding: 24px 44px;
   letter-spacing: 0.03em;
-  box-shadow: 0 10px 34px rgba(0,0,0,0.25), 0 10px 28px rgba(14,123,138,0.35);
+  border: 2px solid rgba(255,255,255,0.75);
+  box-shadow: 0 10px 34px rgba(0,0,0,0.25), 0 10px 28px rgba(14,123,138,0.35), 0 0 0 4px rgba(255,255,255,0.12);
   animation: cta-pulse-teal 2.4s ease-in-out infinite;
   position: relative;
   overflow: hidden;
 }
-.cta-banner .btn--primary::after {
+.cta-banner .btn--primary::after,
+.final-cta .btn--primary::after {
   content: '';
   position: absolute;
   top: 0; left: -100%;
@@ -655,12 +658,20 @@ ul { list-style: none; }
   background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%);
   animation: cta-shimmer 3s ease-in-out infinite;
 }
-.cta-banner .btn--primary:hover { box-shadow: 0 6px 28px rgba(14,123,138,0.55); animation: none; transform: translateY(-2px); }
-@keyframes cta-pulse-teal {
-  0%, 100% { box-shadow: 0 4px 20px rgba(14,123,138,0.4); transform: scale(1); }
-  50% { box-shadow: 0 8px 36px rgba(14,123,138,0.65); transform: scale(1.03); }
+.cta-banner .btn--primary:hover,
+.final-cta .btn--primary:hover {
+  box-shadow: 0 6px 28px rgba(14,123,138,0.55);
+  animation: none;
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.9);
 }
-@media (max-width: 640px) { .cta-banner .btn--primary { font-size: 1.15rem; padding: 22px 24px; width: 100%; justify-content: center; } }
+@keyframes cta-pulse-teal {
+  0%, 100% { box-shadow: 0 4px 20px rgba(14,123,138,0.4), 0 0 0 4px rgba(255,255,255,0.1); transform: scale(1); }
+  50% { box-shadow: 0 8px 36px rgba(14,123,138,0.65), 0 0 0 6px rgba(255,255,255,0.18); transform: scale(1.03); }
+}
+@media (max-width: 640px) {
+  .cta-banner .btn--primary, .final-cta .btn--primary { font-size: 1.15rem; padding: 22px 24px; width: 100%; justify-content: center; }
+}
 
 /* ========================================
    6. EVIDENCE
@@ -1718,12 +1729,20 @@ ul { list-style: none; }
       その秘密を今すぐ体感してみてください。
     </p>
 
-    <div class="cta-block fade-up">
-      <span class="cta-block__achievement">世界中のアスリートやスポーツチームが愛用<br><strong>30,000+</strong> 台の導入実績</span>
-      <a href="#contact" class="btn btn--primary" style="width:100%;">
-        今すぐ資料請求・体験予約
-        <span class="arrow">&rarr;</span>
-      </a>
+    <div class="mid-cta__offer fade-up" style="margin-bottom: 40px;">
+      <p class="mid-cta__offer-label">今すぐ体験すれば効果を実感！</p>
+      <h3 class="mid-cta__offer-title">WINBACKが選ばれる理由を<br>あなた自身で体感してください。</h3>
+      <div class="mid-cta__offer-badges">
+        <span class="mid-cta__offer-badge mid-cta__offer-badge--dark mid-cta__offer-badge--with-image">
+          <span class="mid-cta__offer-badge-text">
+            <span class="mid-cta__offer-badge-kicker">特典1</span>
+            <span class="mid-cta__offer-badge-main">WINBACKを3日間無償お試し</span>
+            <small>※お試しいただく機体は弊社指定のものとなります。</small>
+          </span>
+          <img class="mid-cta__offer-badge-img" src="../ペルソナ1/assets/images/img1.png" alt="BACK4 AX 機器">
+        </span>
+        <span class="mid-cta__offer-badge mid-cta__offer-badge--outline">特典2：最新学術ホワイトペーパー</span>
+      </div>
     </div>
 
     <div class="final-cta__form fade-up">
