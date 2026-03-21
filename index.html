@@ -7,7 +7,8 @@
 <meta name="description" content="神経周囲・深層筋・関節深部へ高周波エネルギーが届く。触診しながら深部アプローチを実現するWINBACK BACK4 AX。鍼灸整骨院・治療家向け。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preload" as="video" href="assets/video/MV_03.mp4" type="video/mp4">
 <style>
 /* ========================================
    CSS Custom Properties
@@ -73,7 +74,7 @@ body {
   max-width: 750px;
   margin: 0 auto;
   box-shadow: 0 0 30px rgba(0,0,0,0.15);
-  padding-bottom: 80px;
+  padding-bottom: 0;
 }
 img { max-width: 100%; height: auto; display: block; }
 a { text-decoration: none; color: inherit; }
@@ -204,9 +205,25 @@ ul { list-style: none; }
    ======================================== */
 .hero {
   position: relative;
-  background: var(--gradient-hero);
+  background: #000000;
   color: var(--color-white);
   overflow: hidden;
+}
+.hero__bg-video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+  pointer-events: none;
 }
 .hero::after {
   content: '';
@@ -216,6 +233,7 @@ ul { list-style: none; }
   background: radial-gradient(circle, rgba(14,123,138,0.06) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
+  z-index: 1;
 }
 .hero__brand {
   position: absolute;
@@ -326,15 +344,15 @@ ul { list-style: none; }
 .mid-cta__text { font-size: 1.05rem; color: rgba(255,255,255,0.9); line-height: 1.8; margin-bottom: 32px; }
 .mid-cta .btn--primary {
   display: inline-flex;
-  background: linear-gradient(135deg, #c4a35a 0%, #dcc07a 50%, #c4a35a 100%);
-  color: var(--color-primary-dark);
+  background: linear-gradient(135deg, #064d58 0%, #0e7b8a 45%, #064d58 100%);
+  color: var(--color-white);
   font-weight: 900;
-  font-size: 1.6rem;
-  padding: 26px 46px;
+  font-size: 1.35rem;
+  padding: 24px 44px;
   letter-spacing: 0.03em;
-  border: none;
-  box-shadow: 0 10px 34px rgba(0,0,0,0.25), 0 10px 28px rgba(196,163,90,0.35);
-  animation: cta-pulse 2.4s ease-in-out infinite;
+  border: 2px solid rgba(255,255,255,0.75);
+  box-shadow: 0 10px 34px rgba(0,0,0,0.25), 0 10px 28px rgba(14,123,138,0.35), 0 0 0 4px rgba(255,255,255,0.12);
+  animation: cta-pulse-teal 2.4s ease-in-out infinite;
   position: relative;
   overflow: hidden;
 }
@@ -346,7 +364,9 @@ ul { list-style: none; }
   background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%);
   animation: cta-shimmer 3s ease-in-out infinite;
 }
-.mid-cta .btn--primary:hover { box-shadow: 0 6px 28px rgba(196,163,90,0.45); animation: none; transform: translateY(-2px); }
+.mid-cta .btn--primary:hover { box-shadow: 0 6px 28px rgba(14,123,138,0.55); animation: none; transform: translateY(-2px); border-color: rgba(255,255,255,0.9); }
+.mid-cta .cta-block__achievement { color: rgba(255,255,255,0.6); }
+.mid-cta .cta-block__achievement strong { color: var(--color-white); }
 @keyframes cta-pulse {
   0%, 100% { box-shadow: 0 4px 20px rgba(196,163,90,0.3); transform: scale(1); }
   50% { box-shadow: 0 6px 32px rgba(196,163,90,0.5); transform: scale(1.03); }
@@ -434,6 +454,9 @@ ul { list-style: none; }
   text-align: left;
 }
 .showcase__text strong { color: var(--color-gold-dark); font-weight: 700; }
+.showcase__device-wrap { position: relative; overflow: hidden; width: 100%; aspect-ratio: 2/1; margin: 32px 0; background: transparent; border: none; border-radius: 0; }
+.showcase__device-wrap img.affinity__device-img { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 120%; height: auto; min-height: 100%; object-fit: cover; }
+.showcase__device-wrap .affinity__logo-overlay { position: absolute; top: 38%; left: 50%; transform: translate(-50%, -50%); width: 140px; z-index: 2; padding: 0; background: none; border-radius: 0; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3)); }
 
 /* ========================================
    1.5 WARNING NOTICES
@@ -546,12 +569,17 @@ ul { list-style: none; }
   font-weight: 700;
 }
 .affinity__image-placeholder {
-  width: 100%; aspect-ratio: 4/3;
-  background: var(--color-bg-alt);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--color-text-light); font-size: 0.82rem;
+  width: 100%; aspect-ratio: 2/1;
+  position: relative; overflow: hidden;
+  background: transparent; border: none; border-radius: 0;
+}
+.affinity__image-placeholder img.affinity__device-img {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 120%; height: auto; min-height: 100%; object-fit: cover;
+}
+.affinity__logo-overlay {
+  position: absolute; top: 38%; left: 50%; transform: translate(-50%, -50%);
+  width: 140px; z-index: 2; padding: 0; background: none;
 }
 .affinity__bottom { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: center; }
 
@@ -617,7 +645,7 @@ ul { list-style: none; }
 .benefit__menu-card { background: var(--color-bg-alt); border: 1px solid var(--color-border-light); border-radius: var(--radius-sm); padding: 18px 22px; margin-bottom: 12px; }
 .benefit__menu-card-title { font-size: 0.88rem; font-weight: 600; color: var(--color-primary); margin-bottom: 6px; }
 .benefit__menu-card-text { font-size: 0.82rem; line-height: 1.8; color: var(--color-text-secondary); }
-.benefit__menu-card-img { margin-top: 12px; width: 100%; height: 120px; background: var(--color-bg-alt); border: 1px dashed var(--color-border); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--color-text-light); }
+.benefit__menu-card-img { margin-top: 12px; width: 75%; aspect-ratio: 1 / 1; margin-left: auto; margin-right: auto; background: var(--color-bg-alt); border: none; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 0.75rem; color: var(--color-text-light); }
 
 /* CTA Banner */
 .cta-banner {
@@ -685,34 +713,6 @@ ul { list-style: none; }
 .evidence__card-title { font-size: 0.98rem; font-weight: 700; line-height: 1.6; margin-bottom: 10px; color: var(--color-primary); }
 .evidence__card-text { font-size: 0.82rem; line-height: 1.9; color: var(--color-text-secondary); }
 
-/* Experience Comparison */
-.experience { background: var(--gradient-light); position: relative; }
-.experience__grid { display: grid; grid-template-columns: 1fr; gap: 32px; max-width: 960px; margin: 48px auto 0; }
-.experience__card { border-radius: var(--radius-lg); padding: 36px 32px; text-align: center; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; }
-.experience__card-body { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; padding: 4px 0 0; }
-.experience__top { width: 100%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; }
-.experience__divider { width: 100%; height: 1px; margin: 16px 0 10px; background: rgba(255,255,255,0.12); }
-.experience__card--new .experience__divider { background: rgba(196,163,90,0.22); }
-.experience__down { width: 100%; display: grid; grid-template-columns: 1fr; justify-items: center; gap: 10px; padding-bottom: 2px; }
-.experience__down-arrow { font-size: 1.2rem; line-height: 1; font-weight: 900; color: rgba(255,255,255,0.75); }
-.experience__card--new .experience__down-arrow { color: rgba(196,163,90,0.95); }
-.experience__card--old { background: linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%); border: 1px solid rgba(255,255,255,0.08); color: #fff; }
-.experience__card--new { background: linear-gradient(135deg, #f9f6f0 0%, #fff 50%, #f5f0e6 100%); border: 2px solid var(--color-gold); box-shadow: 0 4px 28px rgba(196,163,90,0.15); }
-.experience__card-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; padding: 5px 16px; border-radius: 20px; display: inline-block; width: 100%; }
-.experience__card--old .experience__card-label { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
-.experience__card--new .experience__card-label { background: linear-gradient(135deg, #c4a35a 0%, #dcc07a 100%); color: #fff; font-weight: 700; }
-.experience__row, .experience__result { margin: 0; min-width: 0; border-radius: 16px; padding: 14px 14px; }
-.experience__card--old .experience__row, .experience__card--old .experience__result { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); }
-.experience__card--new .experience__row, .experience__card--new .experience__result { background: rgba(196,163,90,0.08); border: 1px solid rgba(196,163,90,0.22); }
-.experience__row-text { font-size: 1.05rem; font-weight: 800; line-height: 1.55; }
-.experience__card--old .experience__row-text { color: rgba(255,255,255,0.7); }
-.experience__card--new .experience__row-text { color: var(--color-primary); }
-.experience__operator { font-family: var(--font-en); font-size: 1.35rem; font-weight: 700; margin: 0; opacity: 0.55; flex-shrink: 0; }
-.experience__card--old .experience__operator { color: rgba(255,255,255,0.55); }
-.experience__card--new .experience__operator { color: var(--color-gold); opacity: 0.75; }
-.experience__result-text { font-size: 1.05rem; font-weight: 900; line-height: 1.55; }
-.experience__card--old .experience__result-text { color: rgba(255,255,255,0.92); text-shadow: 0 1px 0 rgba(0,0,0,0.25); }
-.experience__card--new .experience__result-text { background: linear-gradient(135deg, var(--color-primary) 0%, #c4a35a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.1rem; }
 
 /* ========================================
    Comparison Table
@@ -734,17 +734,41 @@ ul { list-style: none; }
 .comparison__table .sm-hl { display: block; font-size: 0.78rem; color: #085f6c; margin-top: 3px; font-weight: 700; }
 
 /* ========================================
+   ATHLETE SECTION
+   ======================================== */
+.athlete-section { background: #1a1a1a; color: #fff; position: relative; overflow: hidden; }
+.athlete-section__title { font-size: 1.8rem; font-weight: 900; text-align: center; line-height: 1.5; margin-bottom: 32px; color: #fff; }
+.athlete-section__video { width: 100%; max-width: 720px; margin: 0 auto 48px; border-radius: var(--radius-md); overflow: hidden; }
+.athlete-section__video iframe { display: block; width: 100%; height: auto; aspect-ratio: 16/9; border: none; }
+.athlete-section__subtitle { font-size: 1.5rem; font-weight: 800; text-align: center; margin-bottom: 24px; color: #fff; }
+.athlete-section__athletes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 560px; margin: 0 auto 48px; }
+.athlete-section__athlete { text-align: center; }
+.athlete-section__athlete-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 8px; }
+.athlete-section__athlete-sport { font-size: 0.75rem; color: rgba(255,255,255,0.6); margin: 0 0 2px; letter-spacing: 0.03em; }
+.athlete-section__athlete-name { font-size: 0.88rem; font-weight: 700; color: #fff; margin: 0; }
+.athlete-section__teams-heading { font-size: 1.1rem; font-weight: 700; text-align: center; margin-bottom: 8px; color: #fff; }
+.athlete-section__teams-label { text-align: center; font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.6); letter-spacing: 0.1em; margin-bottom: 24px; }
+.athlete-section__teams-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 560px; margin: 0 auto 32px; }
+.athlete-section__team { background: rgba(255,255,255,0.06); border-radius: var(--radius-md); padding: 20px; text-align: center; }
+.athlete-section__team-logo { width: 100%; height: 100px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+.athlete-section__team-logo img { max-width: 90%; max-height: 90px; object-fit: contain; }
+.athlete-section__team-name { font-size: 0.82rem; line-height: 1.6; color: rgba(255,255,255,0.85); }
+.athlete-section__footer { text-align: center; font-size: 0.95rem; font-weight: 600; color: var(--color-gold); padding-top: 8px; }
+
+/* ========================================
    TESTIMONIALS
    ======================================== */
-.wb-family-header { background: #e8f4f5; padding: 72px 0 56px; text-align: center; }
+.wb-family-header { background: #e8f4f5; padding: 72px 0 0; text-align: center; }
 .wb-family-header__lead { font-size: 1.05rem; font-weight: 600; color: var(--color-text-secondary); margin-bottom: 16px; letter-spacing: 0.03em; }
 .wb-family-header__title { font-size: 2.2rem; font-weight: 900; color: var(--color-primary); line-height: 1.5; margin-bottom: 24px; }
 .wb-family-header__sub { font-size: 1.1rem; font-weight: 700; color: var(--color-gold); letter-spacing: 0.05em; }
 .testimonials { background: #e8f4f5; }
-.testimonials__grid { display: grid; gap: 24px; margin-top: 44px; }
+.testimonials__grid { display: grid; gap: 24px; margin-top: 0; }
 .testimonial { display: grid; grid-template-columns: 1fr; background: var(--color-white); border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; transition: var(--transition); }
 .testimonial:hover { box-shadow: var(--shadow-md); }
 .testimonial__image { background: var(--color-bg-alt); display: flex; align-items: center; justify-content: center; color: var(--color-text-light); font-size: 0.82rem; min-height: 180px; }
+.testimonial__image--photo { padding: 0; }
+.testimonial__image--photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .testimonial__body { padding: 28px 32px; }
 .testimonial__title { font-size: 0.98rem; font-weight: 700; color: var(--color-primary); margin-bottom: 14px; line-height: 1.5; padding-bottom: 14px; border-bottom: 1px solid var(--color-border-light); }
 .testimonial__text { font-size: 0.84rem; line-height: 2; color: var(--color-text-secondary); margin-bottom: 14px; }
@@ -760,7 +784,7 @@ ul { list-style: none; }
 .wb-family__slide { flex-shrink: 0; width: 280px; }
 .wb-family__img-placeholder { width: 100%; aspect-ratio: 4/3; background: var(--color-bg-alt); border-radius: var(--radius-md); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; position: relative; overflow: hidden; }
 .wb-family__img-placeholder span { font-size: 0.8rem; color: var(--color-text-light); }
-.wb-family__slide img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-md); }
+.wb-family__slide img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-md); display: block; }
 @keyframes wb-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 @keyframes wb-scroll-reverse { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 
@@ -810,7 +834,7 @@ ul { list-style: none; }
 .final-cta::after { content: ''; position: absolute; bottom: -30%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(14,123,138,0.05) 0%, transparent 60%); border-radius: 50%; pointer-events: none; }
 .final-cta__lead { font-size: 0.95rem; color: rgba(255,255,255,0.9); margin-bottom: 14px; line-height: 1.8; }
 .final-cta__title { font-size: 1.4rem; font-weight: 900; line-height: 1.8; margin-bottom: 14px; color: #ffffff; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-.final-cta__title .hl { background: linear-gradient(135deg, #7de8ed, #dcc07a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.final-cta__title .hl { background: linear-gradient(90deg, #ffffff 0%, #dcc07a 30%, #ffffff 50%, #dcc07a 80%, #ffffff 100%); background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gold-shimmer 4s ease-in-out infinite; }
 .final-cta__sub { font-size: 0.92rem; color: rgba(255,255,255,0.88); line-height: 1.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
 .final-cta .cta-block__achievement { color: rgba(255,255,255,0.6); }
 .final-cta .cta-block__achievement strong { color: var(--color-white); }
@@ -838,6 +862,12 @@ ul { list-style: none; }
   padding: 10px 16px;
   box-shadow: 0 -2px 16px rgba(0,0,0,0.2);
   border-top: 1px solid rgba(196,163,90,0.15);
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.floating-cta.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 @media (min-width: 751px) {
   .floating-cta { padding: 14px 20px 16px; left: 50%; right: auto; width: 750px; margin-left: -375px; box-sizing: border-box; }
@@ -847,7 +877,7 @@ ul { list-style: none; }
   position: relative; display: flex; align-items: center;
   justify-content: flex-start; gap: 10px;
   padding-left: 18px !important; padding-right: 120px !important;
-  overflow: hidden;
+  overflow: visible;
   background: linear-gradient(135deg, #064d58 0%, #0e7b8a 45%, #064d58 100%) !important;
   color: #ffffff !important;
   box-shadow: 0 10px 28px rgba(0,0,0,0.25), 0 6px 18px rgba(14,123,138,0.3) !important;
@@ -872,6 +902,25 @@ ul { list-style: none; }
   color: rgba(255,255,255,0.92);
 }
 .floating-cta__line2 { font-weight: 900; letter-spacing: 0.02em; font-size: 1.28em; text-shadow: 0 2px 10px rgba(0,0,0,0.25); text-align: left; }
+.floating-cta__trial {
+  position: absolute; top: -38px; left: 50%; transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 4px;
+  font-weight: 900; font-size: 0.82em; letter-spacing: 0.04em;
+  padding: 5px 16px; border-radius: 5px;
+  background: linear-gradient(135deg, #c4a35a 0%, #e8cc70 50%, #c4a35a 100%);
+  color: #0f1a32;
+  box-shadow: 0 3px 12px rgba(196,163,90,0.55), 0 0 0 2px rgba(255,255,255,0.25);
+  animation: floating-trial-pulse 2s ease-in-out infinite;
+  white-space: nowrap;
+  z-index: 10;
+}
+.floating-cta__trial-days {
+  font-family: var(--font-en); font-size: 1.4em; font-weight: 900; line-height: 1;
+}
+@keyframes floating-trial-pulse {
+  0%, 100% { box-shadow: 0 4px 14px rgba(196,163,90,0.55), 0 0 0 2px rgba(255,255,255,0.25); }
+  50% { box-shadow: 0 4px 22px rgba(196,163,90,0.8), 0 0 0 2px rgba(255,255,255,0.4), 0 0 12px rgba(220,192,122,0.4); }
+}
 .floating-cta__img { position: absolute; right: -2px; bottom: 0; width: 120px; height: auto; pointer-events: none; filter: drop-shadow(0 12px 22px rgba(0,0,0,0.28)); z-index: 2; }
 
 /* ========================================
@@ -889,7 +938,7 @@ ul { list-style: none; }
   .affinity__main { padding: 32px 22px; }
   .affinity__main-title { font-size: 1.2rem; }
   .support__grid { grid-template-columns: 1fr; }
-  .mid-cta .btn--primary { font-size: 1.38rem; padding: 24px 22px; }
+  .mid-cta .btn--primary { font-size: 1.15rem; padding: 22px 24px; width: 100%; justify-content: center; }
   .comparison__table { font-size: 0.78rem; }
   .comparison__table thead th, .comparison__table tbody td { padding: 10px 8px; }
   .problem .section-sub { font-size: 1.3rem; }
@@ -923,6 +972,9 @@ ul { list-style: none; }
      1. HERO
      ============================================ -->
 <section class="hero" id="hero">
+  <video class="hero__bg-video" autoplay muted loop playsinline preload="metadata" fetchpriority="high">
+    <source src="assets/video/MV_03.mp4" type="video/mp4">
+  </video>
   <div class="hero__brand">
     <div class="hero__brand-logo">
       <!-- ロゴ画像差し替え -->
@@ -937,13 +989,9 @@ ul { list-style: none; }
     <div class="hero__inner">
       <div class="hero__content fade-up">
         <h1 class="hero__title">
-          <span class="hero__title-main">坐骨神経、しびれ、深層筋。<br>指では追えなかった領域へ。</span>
-          <span class="hero__title-sub">― 鍼でしか届かなかった深層に、<br>痛みなく届く。神経系に挑戦したい治療家へ ―</span>
+          <span class="hero__title-main">坐骨神経、しびれ、深層筋<br>手技だけでは届きにくかった<br>身体の深部環境へ</span>
+          <span class="hero__title-sub">神経・循環・代謝といった生理学レベルへアプローチし、<br>治療家の技術をさらに引き出す。</span>
         </h1>
-        <div class="hero__tagline fade-up">
-          手技の心地よさはそのままに、触診しながら深部へエネルギーを届ける。<br>
-          施術の再現性と時短を同時に手に入れられる、唯一の機器。
-        </div>
         <div class="hero__badges fade-up">
           <div class="hero__badge">
             <span class="hero__badge-label">POINT</span><span class="hero__badge-num">01</span>
@@ -973,6 +1021,10 @@ ul { list-style: none; }
       <div class="showcase__content fade-up">
         <p class="showcase__label">For Practitioners</p>
         <h2 class="showcase__title">鍼灸整骨院・アスリートケアを行う<br>治療家のための高周波機器</h2>
+        <div class="showcase__device-wrap">
+          <img decoding="async" loading="lazy" class="affinity__device-img" src="assets/images/WINBACK.webp" alt="WINBACK BACK4 AX">
+          <img decoding="async" loading="lazy" class="affinity__logo-overlay" src="assets/images/WINBACK_logo.webp" alt="WINBACK">
+        </div>
         <p class="showcase__text">WINBACKの高周波エネルギーが<strong>神経周囲・深層筋・関節深部まで到達。</strong>坐骨神経、しびれ、慢性症状などの深層アプローチが可能になります。</p>
         <p class="showcase__text">特許取得のブレスレット・エレクトロードにより、<strong>施術者の手から高周波を出すことが可能。</strong>触診しながら深部へエネルギーを届けます。</p>
         <p class="showcase__text">高周波エネルギーにより<strong>短時間で深部にエネルギーを届けることが可能。</strong>施術の再現性と時短を同時に実現します。</p>
@@ -1010,7 +1062,7 @@ ul { list-style: none; }
   <div class="container">
     <div class="text-center fade-up">
       <div class="section-num">Problem</div>
-      <h2 class="section-title">治療家のあなたも悩んでいませんか？</h2>
+      <h2 class="section-title">施術効果を高めたいと考えている治療家の皆様</h2>
       <hr class="section-line">
       <p class="section-sub">こんなお悩みはありませんか？</p>
     </div>
@@ -1057,7 +1109,9 @@ ul { list-style: none; }
       <p>高周波だけでなく、中周波・低周波の複数のエネルギーを1台で出力することができ、<strong>神経系から内臓、深筋層まで身体のあらゆる深部へアプローチする施術機器です。</strong></p>
     </div>
     <div class="affinity__bottom fade-up">
-      <div class="affinity__image-placeholder">[ 機器 イメージ写真 ]</div>
+      <div class="affinity__image-placeholder">
+        <video autoplay loop muted playsinline class="affinity__device-img" preload="metadata"><source src="assets/video/body.mp4" type="video/mp4"></video>
+      </div>
       <p class="affinity__summary">さらに特許取得のブレスレット・エレクトロードにより<br><span class="em">日本で初めて、高周波施術を手技の延長で行うことを可能にしました。</span><br>触診しながら施術ができる、世界で唯一の高周波機器です。</p>
     </div>
   </div>
@@ -1079,7 +1133,7 @@ ul { list-style: none; }
             <span class="mid-cta__offer-badge-main">WINBACKを3日間無償お試し</span>
             <small>※お試しいただく機体は弊社指定のものとなります。</small>
           </span>
-          <img class="mid-cta__offer-badge-img" src="../ペルソナ1/assets/images/img1.png" alt="BACK4 AX 機器">
+          <img decoding="async" loading="lazy" class="mid-cta__offer-badge-img" src="assets/images/img1.webp" alt="BACK4 AX 機器">
         </span>
         <span class="mid-cta__offer-badge mid-cta__offer-badge--outline">特典2：最新学術ホワイトペーパー</span>
       </div>
@@ -1087,10 +1141,13 @@ ul { list-style: none; }
     <div class="mid-cta__inner fade-up">
       <p class="mid-cta__lead">体験すれば必ず効果を実感！</p>
       <p class="mid-cta__text">あなた自身も、WINBACKシリーズが選ばれる理由を今すぐ体感してみてください！</p>
-      <a href="#contact" class="btn btn--primary">
-        今すぐ資料請求・体験予約
-        <span class="arrow">&rarr;</span>
-      </a>
+      <div class="cta-block">
+        <span class="cta-block__achievement">世界中のアスリートやスポーツチームが愛用<br><strong>30,000+</strong> 台の導入実績</span>
+        <a href="#contact" class="btn btn--primary">
+          今すぐ資料請求・体験予約
+          <span class="arrow">&rarr;</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -1110,7 +1167,7 @@ ul { list-style: none; }
     <div class="solution__grid">
 
       <div class="solution__card fade-up">
-        <div class="solution__card-image">[ 深部アプローチ イメージ写真 ]</div>
+        <div class="solution__card-image"><img decoding="async" loading="lazy" src="assets/video/mixenergy.webp" alt="深部アプローチ イメージ" style="width:100%;height:100%;object-fit:cover;"></div>
         <div class="solution__card-body">
           <p class="solution__card-num">01</p>
           <h3 class="solution__card-title">日本初！1台で複数の周波数を組み合わせ可能</h3>
@@ -1126,7 +1183,7 @@ ul { list-style: none; }
       </div>
 
       <div class="solution__card fade-up">
-        <div class="solution__card-image">[ ブレスレット・エレクトロード 写真 ]</div>
+        <div class="solution__card-image"><img decoding="async" loading="lazy" src="assets/images/img1.svg" alt="ブレスレットエレクトロードによるフリーハンド施術" style="max-width:85%;max-height:260px;object-fit:contain;"></div>
         <div class="solution__card-body">
           <p class="solution__card-num">02</p>
           <h3 class="solution__card-title">手技の延長で高周波施術ができる</h3>
@@ -1136,7 +1193,7 @@ ul { list-style: none; }
       </div>
 
       <div class="solution__card fade-up">
-        <div class="solution__card-image">[ 鍼×高周波 施術 写真 ]</div>
+        <div class="solution__card-image"><video autoplay loop muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;"><source src="assets/video/鍼.mp4" type="video/mp4"></video></div>
         <div class="solution__card-body">
           <p class="solution__card-num">03</p>
           <h3 class="solution__card-title">鍼×高周波の組み合わせで既存メニューをさらに効果的に</h3>
@@ -1145,7 +1202,7 @@ ul { list-style: none; }
       </div>
 
       <div class="solution__card fade-up">
-        <div class="solution__card-image">[ スパークレス・快適施術 写真 ]</div>
+        <div class="solution__card-image"><img decoding="async" loading="lazy" src="assets/images/patent-thumbnail.jpg" alt="スパークレス・快適施術" style="width:100%;height:100%;object-fit:cover;"></div>
         <div class="solution__card-body">
           <p class="solution__card-num">04</p>
           <h3 class="solution__card-title">施術中のスパークレスで安心・安全に</h3>
@@ -1173,7 +1230,7 @@ ul { list-style: none; }
             <span class="mid-cta__offer-badge-main">WINBACKを3日間無償お試し</span>
             <small>※お試しいただく機体は弊社指定のものとなります。</small>
           </span>
-          <img class="mid-cta__offer-badge-img" src="../ペルソナ1/assets/images/img1.png" alt="BACK4 AX 機器">
+          <img decoding="async" loading="lazy" class="mid-cta__offer-badge-img" src="assets/images/img1.webp" alt="BACK4 AX 機器">
         </span>
         <span class="mid-cta__offer-badge mid-cta__offer-badge--outline">特典2：最新学術ホワイトペーパー</span>
       </div>
@@ -1217,31 +1274,30 @@ ul { list-style: none; }
             <div class="benefit__menu-card">
               <p class="benefit__menu-card-title">① 坐骨神経アプローチ施術（神経ケアメニュー）</p>
               <p class="benefit__menu-card-text">坐骨神経やしびれなど、神経由来の症状にアプローチする治療メニュー。触診しながら神経走行に沿って施術することで、坐骨神経痛・下肢のしびれ・梨状筋症候群などにアプローチします。</p>
-              <div class="benefit__menu-card-img">[ 施術イメージ写真 ]</div>
+              <div class="benefit__menu-card-img"><img decoding="async" loading="lazy" src="assets/images/relaxation3.jpg" alt="坐骨神経アプローチ施術イメージ" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
             </div>
             <div class="benefit__menu-card">
               <p class="benefit__menu-card-title">② 深層筋リリース整体（筋膜・深層筋メニュー）</p>
               <p class="benefit__menu-card-text">慢性的な肩こりや腰痛の原因となる深層筋や筋膜の緊張にアプローチ。手技による筋膜リリースと高周波エネルギーを同時に行えます。</p>
-              <div class="benefit__menu-card-img">[ 施術イメージ写真 ]</div>
+              <div class="benefit__menu-card-img"><img decoding="async" loading="lazy" src="assets/images/relaxation2.jpg" alt="深層筋リリース整体イメージ" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
             </div>
             <div class="benefit__menu-card">
               <p class="benefit__menu-card-title">③ アスリートコンディショニング施術（スポーツケア）</p>
               <p class="benefit__menu-card-text">スポーツ後の疲労回復や筋肉のコンディショニングを目的とした施術。プロアスリートのケアにも使用される技術を日常のスポーツケアメニューとして提供可能。</p>
-              <div class="benefit__menu-card-img">[ 施術イメージ写真 ]</div>
+              <div class="benefit__menu-card-img"><img decoding="async" loading="lazy" src="assets/images/img2.jpg" alt="アスリートコンディショニング施術イメージ" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
             </div>
             <div class="benefit__menu-card">
               <p class="benefit__menu-card-title">④ 関節可動域改善プログラム（リハビリメニュー）</p>
               <p class="benefit__menu-card-text">関節周囲の筋肉や靭帯にアプローチし可動域の改善を目指す施術。肩関節・股関節・膝関節などの動きをサポートします。</p>
-              <div class="benefit__menu-card-img">[ 施術イメージ写真 ]</div>
+              <div class="benefit__menu-card-img"><img decoding="async" loading="lazy" src="assets/images/treatmentb.jpg" alt="関節可動域改善施術イメージ" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
             </div>
             <div class="benefit__menu-card">
               <p class="benefit__menu-card-title">⑤ 自律神経コンディショニング施術</p>
               <p class="benefit__menu-card-text">首・背中・頭部へのアプローチにより自律神経バランスを整える施術メニュー。不眠・頭痛・慢性疲労などの症状改善を目指します。</p>
-              <div class="benefit__menu-card-img">[ 施術イメージ写真 ]</div>
+              <div class="benefit__menu-card-img"><img decoding="async" loading="lazy" src="assets/images/img1.jpg" alt="自律神経コンディショニング施術イメージ" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></div>
             </div>
           </div>
         </div>
-        <div class="benefit__visual">[ 深部アプローチ 施術写真 ]</div>
       </div>
 
       <div class="benefit__item fade-up">
@@ -1250,7 +1306,6 @@ ul { list-style: none; }
           <h3 class="benefit__item-title">施術時間の短縮</h3>
           <p class="benefit__item-text">高周波エネルギーにより<strong>効率的な施術が可能。</strong>結果として<strong>施術時間の短縮につながり</strong>、1日あたりの対応患者数を増やすことも可能に。</p>
         </div>
-        <div class="benefit__visual">[ 施術効率化 イメージ写真 ]</div>
       </div>
 
       <div class="benefit__item fade-up">
@@ -1259,7 +1314,6 @@ ul { list-style: none; }
           <h3 class="benefit__item-title">再現性の高い施術</h3>
           <p class="benefit__item-text">エネルギーを使用することで<strong>技術差を補いながら安定した施術が可能。</strong>スタッフ間での施術品質の均一化にも貢献します。</p>
         </div>
-        <div class="benefit__visual">[ 施術再現性 イメージ写真 ]</div>
       </div>
 
       <div class="benefit__item fade-up">
@@ -1268,7 +1322,6 @@ ul { list-style: none; }
           <h3 class="benefit__item-title">治療院の差別化につながる</h3>
           <p class="benefit__item-text">WINBACKシリーズは施術の周波数の数とオプションパーツの種類から<strong>メニューの選択肢が大幅に広がります。</strong>他院と異なるメニューを選択し、<strong>長期的に競合との差別化が可能に。</strong>さらに<strong>高付加価値の自費診療メニューの提案も可能に！</strong></p>
         </div>
-        <div class="benefit__visual">[ 差別化メニュー イメージ写真 ]</div>
       </div>
 
     </div>
@@ -1326,66 +1379,6 @@ ul { list-style: none; }
 </section>
 
 
-<!-- ============================================
-     EXPERIENCE COMPARISON
-     ============================================ -->
-<section class="experience section-padding" id="experience">
-  <div class="container">
-    <div class="text-center fade-up">
-      <div class="section-num">Experience</div>
-      <h2 class="section-title section-title--xl">患者様の「体感」は、<br>どう変わる？</h2>
-      <hr class="section-line">
-    </div>
-
-    <div class="experience__grid">
-
-      <div class="experience__card experience__card--old fade-up">
-        <span class="experience__card-label">従来の機器・よくある高周波</span>
-        <div class="experience__card-body">
-          <div class="experience__top">
-            <div class="experience__row">
-              <p class="experience__row-text">硬いプローブ・<br>グローブ施術</p>
-            </div>
-            <div class="experience__operator">&times;</div>
-            <div class="experience__row">
-              <p class="experience__row-text">表面的な<br>ピリピリ感</p>
-            </div>
-          </div>
-          <div class="experience__divider"></div>
-          <div class="experience__down">
-            <div class="experience__down-arrow">&#8595;</div>
-            <div class="experience__result">
-              <p class="experience__result-text">深部に届かない<br>（効果が出るまで時間がかかる）</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="experience__card experience__card--new fade-up">
-        <span class="experience__card-label">WINBACK BACK4 AX</span>
-        <div class="experience__card-body">
-          <div class="experience__top">
-            <div class="experience__row">
-              <p class="experience__row-text">あなたの素手の<br>温もりと手技</p>
-            </div>
-            <div class="experience__operator">&times;</div>
-            <div class="experience__row">
-              <p class="experience__row-text">深部から湧き出る<br>柔らかな熱</p>
-            </div>
-          </div>
-          <div class="experience__divider"></div>
-          <div class="experience__down">
-            <div class="experience__down-arrow">&#8595;</div>
-            <div class="experience__result">
-              <p class="experience__result-text">神経・深層筋へ確実アプローチ<br>（再現性の高い施術効果）</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 
 <!-- ============================================
@@ -1467,6 +1460,99 @@ ul { list-style: none; }
 
 
 <!-- ============================================
+     ATHLETE SECTION
+     ============================================ -->
+<section class="athlete-section section-padding" id="athlete">
+  <div class="container">
+    <h2 class="athlete-section__title fade-up">世界トップアスリートも認める<br>WINBACK</h2>
+    <div class="athlete-section__video fade-up">
+      <iframe src="https://www.youtube-nocookie.com/embed/kvl3Fv2Ew_c?si=79E97m3AEaD-xIob&rel=0" title="WINBACKスポーツ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+    <h3 class="athlete-section__subtitle fade-up">日本のトップアスリートも愛用</h3>
+    <div class="athlete-section__athletes-grid fade-up">
+      <div class="athlete-section__athlete">
+        <img decoding="async" loading="lazy" class="athlete-section__athlete-img" src="assets/images/athletes/img01.jpg" alt="仲川 輝人 選手">
+        <p class="athlete-section__athlete-sport">SOCCER（サッカー）</p>
+        <p class="athlete-section__athlete-name">仲川 輝人 選手</p>
+      </div>
+      <div class="athlete-section__athlete">
+        <img decoding="async" loading="lazy" class="athlete-section__athlete-img" src="assets/images/athletes/img02.jpg" alt="日野 剛志 選手">
+        <p class="athlete-section__athlete-sport">RUGBY（ラグビー）</p>
+        <p class="athlete-section__athlete-name">日野 剛志 選手</p>
+      </div>
+      <div class="athlete-section__athlete">
+        <img decoding="async" loading="lazy" class="athlete-section__athlete-img" src="assets/images/athletes/img04.webp" alt="太田 修介 選手">
+        <p class="athlete-section__athlete-sport">SOCCER（サッカー）</p>
+        <p class="athlete-section__athlete-name">太田 修介 選手</p>
+      </div>
+      <div class="athlete-section__athlete">
+        <img decoding="async" loading="lazy" class="athlete-section__athlete-img" src="assets/images/athletes/img05.webp" alt="佐藤 卓磨 選手">
+        <p class="athlete-section__athlete-sport">BASKETBALL（バスケットボール）</p>
+        <p class="athlete-section__athlete-name">佐藤 卓磨 選手</p>
+      </div>
+      <div class="athlete-section__athlete">
+        <img decoding="async" loading="lazy" class="athlete-section__athlete-img" src="assets/images/athletes/img03.jpg" alt="額賀 辰徳 選手">
+        <p class="athlete-section__athlete-sport">GOLF（ゴルフ）</p>
+        <p class="athlete-section__athlete-name">額賀 辰徳 選手</p>
+      </div>
+      <div class="athlete-section__athlete">
+        <img decoding="async" loading="lazy" class="athlete-section__athlete-img" src="assets/images/athletes/img06.webp" alt="脇田 紗弥 選手">
+        <p class="athlete-section__athlete-sport">SOCCER（サッカー）</p>
+        <p class="athlete-section__athlete-name">脇田 紗弥 選手</p>
+      </div>
+      <div class="athlete-section__athlete">
+        <img decoding="async" loading="lazy" class="athlete-section__athlete-img" src="assets/images/athletes/img07.webp" alt="杉岡 尚樹 選手">
+        <p class="athlete-section__athlete-sport">HANDBALL（ハンドボール）</p>
+        <p class="athlete-section__athlete-name">杉岡 尚樹 選手</p>
+      </div>
+      <div class="athlete-section__athlete">
+        <img decoding="async" loading="lazy" class="athlete-section__athlete-img" src="assets/images/athletes/img08.webp" alt="伊藤 恵亮 選手">
+        <p class="athlete-section__athlete-sport">SOCCER（サッカー）</p>
+        <p class="athlete-section__athlete-name">伊藤 恵亮 選手</p>
+      </div>
+    </div>
+    <h4 class="athlete-section__teams-heading fade-up">国内でも各分野のプロスポーツチームで採用</h4>
+    <p class="athlete-section__teams-label fade-up">WINBACK SPORT スポンサーチーム</p>
+    <div class="athlete-section__teams-grid fade-up">
+      <div class="athlete-section__team">
+        <div class="athlete-section__team-logo"><img decoding="async" loading="lazy" src="assets/images/teams/logo01.svg" alt="FC東京"></div>
+        <p class="athlete-section__team-name">J1リーグ<br>FC東京</p>
+      </div>
+      <div class="athlete-section__team">
+        <div class="athlete-section__team-logo"><img decoding="async" loading="lazy" src="assets/images/teams/logo03.svg" alt="いわきFC"></div>
+        <p class="athlete-section__team-name">J2リーグ<br>いわきFC</p>
+      </div>
+      <div class="athlete-section__team">
+        <div class="athlete-section__team-logo"><img decoding="async" loading="lazy" src="assets/images/teams/logo08.svg" alt="藤枝MYFC"></div>
+        <p class="athlete-section__team-name">J2リーグ<br>藤枝MYFC</p>
+      </div>
+      <div class="athlete-section__team">
+        <div class="athlete-section__team-logo"><img decoding="async" loading="lazy" src="assets/images/teams/logo02.svg" alt="アイナック神戸"></div>
+        <p class="athlete-section__team-name">WEリーグ<br>アイナック神戸</p>
+      </div>
+      <div class="athlete-section__team">
+        <div class="athlete-section__team-logo"><img decoding="async" loading="lazy" src="assets/images/teams/logo10.svg" alt="名古屋ダイヤモンドドルフィンズ"></div>
+        <p class="athlete-section__team-name">Bリーグ<br>名古屋ダイヤモンド<br>ドルフィンズ</p>
+      </div>
+      <div class="athlete-section__team">
+        <div class="athlete-section__team-logo"><img decoding="async" loading="lazy" src="assets/images/teams/logo05.svg" alt="三菱電機コアラーズ"></div>
+        <p class="athlete-section__team-name">Wリーグ<br>三菱電機コアラーズ</p>
+      </div>
+      <div class="athlete-section__team">
+        <div class="athlete-section__team-logo"><img decoding="async" loading="lazy" src="assets/images/teams/logo07.svg" alt="静岡ブルーレヴズ"></div>
+        <p class="athlete-section__team-name">リーグワン<br>静岡ブルーレヴズ</p>
+      </div>
+      <div class="athlete-section__team">
+        <div class="athlete-section__team-logo"><img decoding="async" loading="lazy" src="assets/images/teams/logo04.svg" alt="日本製鉄釜石シーウェイブス"></div>
+        <p class="athlete-section__team-name">リーグワン<br>日本製鉄釜石<br>シーウェイブス</p>
+      </div>
+    </div>
+    <p class="athlete-section__footer fade-up">その他プロスポーツチームでもWINBACK導入多数</p>
+  </div>
+</section>
+
+
+<!-- ============================================
      TESTIMONIALS
      ============================================ -->
 <section class="wb-family-header">
@@ -1477,12 +1563,14 @@ ul { list-style: none; }
   </div>
 </section>
 
-<section class="testimonials section-padding">
+<section class="testimonials" style="padding: 24px 0 88px;">
   <div class="container">
     <div class="testimonials__grid">
 
       <div class="testimonial fade-up">
-        <div class="testimonial__image">[ 施術写真 ]</div>
+        <div class="testimonial__image testimonial__image--photo">
+          <img decoding="async" loading="lazy" src="assets/images/mask_group_3.jpg" alt="アスリートの育成・ケアにWINBACKが大活躍">
+        </div>
         <div class="testimonial__body">
           <h3 class="testimonial__title">アスリートの育成・ケアにWINBACKが大活躍！</h3>
           <p class="testimonial__text">当店にはトレーニングとアスリートケアで多くのお客様が訪れています。トレーニング前後のWINBACKケアはパフォーマンスを高める為に大活躍しています！また、最近では<strong>「美容と身体のケアができる」と女性アスリートからの人気も上々です。</strong></p>
@@ -1491,7 +1579,9 @@ ul { list-style: none; }
       </div>
 
       <div class="testimonial fade-up">
-        <div class="testimonial__image">[ 施術写真 ]</div>
+        <div class="testimonial__image testimonial__image--photo">
+          <img decoding="async" loading="lazy" src="assets/images/mask_group_2.jpg" alt="WINBACKで長年悩まれていた患者様が次々と笑顔に">
+        </div>
         <div class="testimonial__body">
           <h3 class="testimonial__title">WINBACKで長年悩まれていた患者様が次々と笑顔に！</h3>
           <p class="testimonial__text">導入前の治療は、その時楽になるがまたすぐに元に戻ってしまうの繰り返しでした。しかし、<strong>WINBACKを使った施術をすることで長年の悩みが解消される方が続出。自費治療の売上を格段に伸ばすことができました。</strong></p>
@@ -1500,7 +1590,9 @@ ul { list-style: none; }
       </div>
 
       <div class="testimonial fade-up">
-        <div class="testimonial__image">[ 施術写真 ]</div>
+        <div class="testimonial__image testimonial__image--photo">
+          <img decoding="async" loading="lazy" src="assets/images/20240306_115107-1.jpg" alt="手技とWINBACKの相乗効果でリハビリの可能性が広がる">
+        </div>
         <div class="testimonial__body">
           <h3 class="testimonial__title">手技とWINBACKの相乗効果で、リハビリの可能性が大きく広がりました！</h3>
           <p class="testimonial__text">私はこれまで20年以上、病院でリハビリに携わってきました。手技だけでは緩めきれない深部へのアプローチに限界を感じることもありました。しかし<strong>WINBACKを導入してからは、手技では届かなかった領域までアプローチできるようになり、施術の幅が大きく広がりました。</strong></p>
@@ -1522,34 +1614,36 @@ ul { list-style: none; }
   </div>
   <div class="wb-family__slider fade-up">
     <div class="wb-family__track">
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>導入サロン写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>導入サロン写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>導入サロン写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>導入サロン写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>導入サロン写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>導入サロン写真</span></div></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/1-11.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/2023.8.24-28.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/8016896aaafd241ca5da7b0a001ea031.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/DSC08784-1.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/DSC08929.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/IMG_2245.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/IMG_2438.jpg" alt="導入サロン"></div>
       <!-- duplicate -->
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>導入サロン写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>導入サロン写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>導入サロン写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>導入サロン写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>導入サロン写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>導入サロン写真</span></div></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/1-11.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/2023.8.24-28.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/8016896aaafd241ca5da7b0a001ea031.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/DSC08784-1.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/DSC08929.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/IMG_2245.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/IMG_2438.jpg" alt="導入サロン"></div>
     </div>
     <div class="wb-family__track wb-family__track--reverse">
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>アスリート写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>アスリート写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>アスリート写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>アスリート写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>アスリート写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>アスリート写真</span></div></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/IMG_2581.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/IMG_3150.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/LINE_ALBUM_20221222_230125-1.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/Screenshot_248.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/d189a43574badb6cd472161c5e71832b.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/image-8-1.jpg" alt="導入サロン"></div>
       <!-- duplicate -->
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>アスリート写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>アスリート写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>アスリート写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>アスリート写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>アスリート写真</span></div></div>
-      <div class="wb-family__slide"><div class="wb-family__img-placeholder"><span>アスリート写真</span></div></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/IMG_2581.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/IMG_3150.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/LINE_ALBUM_20221222_230125-1.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/Screenshot_248.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/d189a43574badb6cd472161c5e71832b.jpg" alt="導入サロン"></div>
+      <div class="wb-family__slide"><img decoding="async" loading="lazy" src="assets/images/slider/image-8-1.jpg" alt="導入サロン"></div>
     </div>
   </div>
 </section>
@@ -1658,7 +1752,7 @@ ul { list-style: none; }
           </tr>
           <tr>
             <td>貼るだけWINBACK（特許取得）</td>
-            <td class="hl"><span class="series__dash"></span></td>
+            <td class="hl"><span class="series__mark"></span></td>
             <td><span class="series__mark"></span></td>
             <td><span class="series__mark"></span></td>
           </tr>
@@ -1729,7 +1823,7 @@ ul { list-style: none; }
       その秘密を今すぐ体感してみてください。
     </p>
 
-    <div class="mid-cta__offer fade-up" style="margin-bottom: 40px;">
+    <div class="mid-cta__offer fade-up" id="final-offer" style="margin-bottom: 40px;">
       <p class="mid-cta__offer-label">今すぐ体験すれば効果を実感！</p>
       <h3 class="mid-cta__offer-title">WINBACKが選ばれる理由を<br>あなた自身で体感してください。</h3>
       <div class="mid-cta__offer-badges">
@@ -1739,14 +1833,14 @@ ul { list-style: none; }
             <span class="mid-cta__offer-badge-main">WINBACKを3日間無償お試し</span>
             <small>※お試しいただく機体は弊社指定のものとなります。</small>
           </span>
-          <img class="mid-cta__offer-badge-img" src="../ペルソナ1/assets/images/img1.png" alt="BACK4 AX 機器">
+          <img decoding="async" loading="lazy" class="mid-cta__offer-badge-img" src="assets/images/img1.webp" alt="BACK4 AX 機器">
         </span>
         <span class="mid-cta__offer-badge mid-cta__offer-badge--outline">特典2：最新学術ホワイトペーパー</span>
       </div>
     </div>
 
     <div class="final-cta__form fade-up">
-      <iframe id="rizbell-form" src="https://lfo.rizbell.com/booking/marketingbcara?project=proj_sm2uyybk&embed=true" width="100%" frameborder="0" style="border: none; max-width: 600px; min-height: 800px; margin: 0 auto; display: block;"></iframe>
+      <iframe id="rizbell-form" src="https://lfo.rizbell.com/booking/marketingbcara?project=proj_oxak45he&embed=true" width="100%" frameborder="0" style="border: none; max-width: 600px; min-height: 800px; margin: 0 auto; display: block;"></iframe>
       <script src="https://lfo.rizbell.com/embed-form.js"></script>
     </div>
   </div>
@@ -1769,12 +1863,13 @@ ul { list-style: none; }
 
 <!-- Floating CTA（PC・スマホ共通・画面下固定） -->
 <div class="floating-cta">
-  <a href="#contact" class="btn floating-cta__btn">
+  <a href="#final-offer" class="btn floating-cta__btn">
+    <span class="floating-cta__trial">WINBACKを<span class="floating-cta__trial-days">3</span>日間 無償お試し</span>
     <span class="floating-cta__text">
       <span class="floating-cta__line1">神経系に挑戦したい治療家へ</span>
       <span class="floating-cta__line2">今すぐ資料請求・体験予約 →</span>
     </span>
-    <img class="floating-cta__img" src="../ペルソナ1/assets/images/img1.png" alt="BACK4 AX 機器">
+    <img decoding="async" loading="eager" class="floating-cta__img" src="assets/images/img1.webp" alt="BACK4 AX 機器">
   </a>
 </div>
 
@@ -1792,6 +1887,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
   els.forEach(function(el) { observer.observe(el); });
+
+  var floatingCta = document.querySelector('.floating-cta');
+  var finalCta = document.querySelector('.final-cta');
+  if (floatingCta && finalCta) {
+    var ctaObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          floatingCta.classList.add('is-hidden');
+        } else {
+          floatingCta.classList.remove('is-hidden');
+        }
+      });
+    }, { threshold: 0.15 });
+    ctaObserver.observe(finalCta);
+  }
 });
 </script>
 
