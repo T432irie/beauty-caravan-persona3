@@ -1135,7 +1135,7 @@ ul { list-style: none; }
           </span>
           <img decoding="async" loading="lazy" class="mid-cta__offer-badge-img" src="assets/images/img1.webp" alt="BACK4 AX 機器">
         </span>
-        <span class="mid-cta__offer-badge mid-cta__offer-badge--outline">特典2：高周波施術に関する最新学術ホワイトペーパー</span>
+        <span class="mid-cta__offer-badge mid-cta__offer-badge--outline">特典2：高周波施術に関する最新学術BOOK</span>
         <span class="mid-cta__offer-badge mid-cta__offer-badge--outline">特典3：動画でわかるWINBACKガイド</span>
       </div>
     </div>
@@ -1233,7 +1233,7 @@ ul { list-style: none; }
           </span>
           <img decoding="async" loading="lazy" class="mid-cta__offer-badge-img" src="assets/images/img1.webp" alt="BACK4 AX 機器">
         </span>
-        <span class="mid-cta__offer-badge mid-cta__offer-badge--outline">特典2：高周波施術に関する最新学術ホワイトペーパー</span>
+        <span class="mid-cta__offer-badge mid-cta__offer-badge--outline">特典2：高周波施術に関する最新学術BOOK</span>
         <span class="mid-cta__offer-badge mid-cta__offer-badge--outline">特典3：動画でわかるWINBACKガイド</span>
       </div>
     </div>
@@ -1837,7 +1837,7 @@ ul { list-style: none; }
           </span>
           <img decoding="async" loading="lazy" class="mid-cta__offer-badge-img" src="assets/images/img1.webp" alt="BACK4 AX 機器">
         </span>
-        <span class="mid-cta__offer-badge mid-cta__offer-badge--outline">特典2：高周波施術に関する最新学術ホワイトペーパー</span>
+        <span class="mid-cta__offer-badge mid-cta__offer-badge--outline">特典2：高周波施術に関する最新学術BOOK</span>
         <span class="mid-cta__offer-badge mid-cta__offer-badge--outline">特典3：動画でわかるWINBACKガイド</span>
       </div>
     </div>
@@ -1890,6 +1890,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
   els.forEach(function(el) { observer.observe(el); });
+
+  document.querySelectorAll('a[href="#contact"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.getElementById('contact');
+      if (!target) return;
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(function() { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 600);
+    });
+  });
 
   var floatingCta = document.querySelector('.floating-cta');
   var finalCta = document.querySelector('.final-cta');
